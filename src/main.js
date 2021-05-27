@@ -35,6 +35,12 @@ new Vue({
       measurementId: "G-GPKG954JZ0"
     }
     firebase.initializeApp(config)
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoLoginUser' , user)
+      }
+    })
     
     
   }

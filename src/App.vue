@@ -23,11 +23,24 @@
         <v-list-item-content>
           <v-list-item-title v-text="link.title"></v-list-item-title>
         </v-list-item-content>
-
+       
         
       </v-list-item>
+       <v-list-item
+       v-if="isUserLoggedIn"
+       @click="onLogout"
+       >
+          <v-list-item-icon>
+            <v-icon>logout</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+             <v-list-item-title v-text="'Logout'"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
     </v-list>
     </v-navigation-drawer>
+
+
     <v-app-bar 
         app 
         dark
@@ -42,41 +55,30 @@
 
       <v-toolbar-title >
         <router-link to="/"  tag="span" class="pointer">Облако знаний</router-link>
-        </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      
-      
-        <v-btn 
-        
-        color="#41D1FF"
-        
-        class=" hidden-sm-and-down mr-2"
-        v-for="link in links"
-        :key="link.title"
-        :to="link.url"
-        ><v-icon>{{link.icon}}</v-icon>
-        {{link.title}}
-        </v-btn>
-
-        <!-- <v-btn 
-        flat
-        color="#41D1FF"
-        icon
-        class=" hidden-sm-and-down mr-2"
-        v-for="link in links"
-        :key="link.title"
-        :to="link.url"
-        ><v-icon>{{link.icon}}</v-icon>
-        
-        </v-btn> -->
+      </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class=" hidden-sm-and-down mr-2">
           
-
+          <v-btn 
+          color="#41D1FF"
           
-    
-        
-     
+          v-for="link in links"
+          :key="link.title"
+          :to="link.url"
+          ><v-icon>{{link.icon}}</v-icon>
+          {{link.title}}
+          </v-btn>
+
+          <v-btn
+          v-if="isUserLoggedIn"
+          @click="onLogout"
+          text
+          > <v-icon >logout</v-icon>
+          Logout
+          
+          </v-btn>
+        </v-toolbar-items>
+
     </v-app-bar>
     <v-main>
         <router-view></router-view>
@@ -92,16 +94,7 @@
         >
           {{error}}
     
-          <template v-slot:action="{ attrs }">
-            <v-btn
-              dark
-              
-              v-bind="attrs"
-              @click="closeErrors"
-            >
-              Close
-            </v-btn>
-          </template>
+        
         </v-snackbar>
      </template>
   </v-app>
@@ -115,17 +108,20 @@ export default {
         
         drawer: false,
        
-        links: [
 
-          // {
-          //   title: 'Ad',
-          //   icon: 'list',
-          //   url: '/ad/:id',
-          //   action: 'article', 
-            
-          // },
-
-          {
+      }
+    },
+    computed: {
+      error() {
+        return this.$store.getters.error
+      },
+      isUserLoggedIn () {
+        return this.$store.getters.isUserLoggedIn
+      },
+      links () {
+        if (this.isUserLoggedIn) {
+          return [
+               {
             title: 'AdList',
             icon: 'list',
             url: '/list',
@@ -141,15 +137,27 @@ export default {
             
           },
 
+          // {
+          //   title: 'Search',
+          //   icon: 'mdi-magnify',
+          //   url: '/search',
+          //   action: 'mdi-magnify', 
+            
+          // },
+
           {
-            title: 'Search',
-            icon: 'mdi-magnify',
-            url: '/search',
-            action: 'mdi-magnify', 
+            title: 'Orders',
+            icon: 'group',
+            url: '/orders',
+            action: 'group', 
             
           },
 
-          {
+          ]
+        }
+
+          return [
+            {
             title: 'Login', 
             icon: 'login', 
             url: '/login', 
@@ -164,28 +172,18 @@ export default {
             action: 'person_add', 
             
           },
-
-           {
-            title: 'Orders',
-            icon: 'group',
-            url: '/orders',
-            action: 'group', 
-            
-          },
-
-        ],
-      }
-    },
-    computed: {
-      error() {
-        return this.$store.getters.error
+          ]
       }
     },
     methods: {
       closeErrors () {
         this.$store.dispatch('clearError')
-
-      }
+      },
+      onLogout () {
+        this.$store.dispatch('logoutUser')
+        this.$router.push('/')
+      },
+      
     },
 }
 </script>
