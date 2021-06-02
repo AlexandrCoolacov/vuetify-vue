@@ -1,13 +1,22 @@
 <template>
      <v-container grid-list-lg>
-         <h1>Фильтрация еще не прикручена, как и картинки. Их url-ов нет в ответе, нужно пилить каждую вручную. В процессе</h1>
+           
+
+
+            <v-text-field
+                v-model="search"
+                placeholder="Введите цену или название предмета"
+                >
+            </v-text-field>
+
+            
              <v-layout row wrap>
                 <v-flex 
                 class="mt-12"
                 xs12 
                 sm6 
                 md4
-                v-for="(item) in itemsFrom"
+                v-for="(item) in filteredProducts"
                 :key="item.id"
                 >
                     <v-card
@@ -63,16 +72,58 @@
 
 
 export default {
+    
     data() {
         return {
-           itemsFrom: []
+           itemsFrom: [],
+           sortedProducts: [],
+           search: '',
+           options: [
+                { price: '400' , value: '400'},
+                { price: '1000' , value: '1000'},
+                
+            ],
+            
+            // message: '',
+            
             
         }
+    },
+    computed: {
+        filteredProducts() {
+            const sortedProducts = this.itemsFrom.filter((item) => {
+                
+                return (
+                    [item.price, item.subject].toString().indexOf(this.search) !== -1
+                    // || item.subject.toString().indexOf(this.search) !== -1
+                )
+               
+                
+            })
+
+             return sortedProducts
+
+            
+        }
+        
     },
     components: {
         // items
     },
     methods: {
+        // sortByCategories(option) {
+        //     this.sortedProducts =[]
+        //     let vm = this
+        //     itemsFrom.forEach(function (item) {
+        //         if(item.price === this.searchText) {
+        //             vm.sortedProducts.push(item);
+        //         }
+        //          console.log(sortedProducts);
+        //     })
+           
+
+        // }
+        
        
         	 
 			
