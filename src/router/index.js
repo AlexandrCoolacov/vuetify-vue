@@ -8,11 +8,17 @@ import Search from '@/components/ads/Search'
 import Login from '@/components/Auth/Login'
 import Registration from '@/components/Auth/Registration'
 import Orders from '@/components/User/Orders'
+import Main from '@/components/User/Main'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/main',
+    name: 'main',
+    component: Main,
+  },
   {
     path: '/',
     name: 'home',

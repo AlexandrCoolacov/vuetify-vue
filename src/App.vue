@@ -54,7 +54,7 @@
        ></v-app-bar-nav-icon>
 
       <v-toolbar-title >
-        <router-link to="/"  tag="span" class="pointer">Облако знаний</router-link>
+        <router-link to="/main"  tag="span" class="pointer">Сайт- резюме Кулакова Александра</router-link>
       </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class=" hidden-sm-and-down mr-2">
@@ -74,7 +74,7 @@
           @click="onLogout"
           text
           > <v-icon >logout</v-icon>
-          Logout
+          Выйти
           
           </v-btn>
         </v-toolbar-items>
@@ -121,8 +121,9 @@ export default {
       links () {
         if (this.isUserLoggedIn) {
           return [
+            
                {
-            title: 'AdList',
+            title: 'Список',
             icon: 'list',
             url: '/list',
             action: 'list', 
@@ -130,26 +131,34 @@ export default {
           },
 
           {
-            title: 'NewAd',
+            title: 'Создать',
             icon: 'note_add',
             url: '/new',
             action: 'note_add', 
             
           },
 
-          // {
-          //   title: 'Search',
-          //   icon: 'mdi-magnify',
-          //   url: '/search',
-          //   action: 'mdi-magnify', 
+          {
+            title: 'Фильтры',
+            icon: 'mdi-magnify',
+            url: '/search',
+            action: 'mdi-magnify', 
             
-          // },
+          },
 
           {
-            title: 'Orders',
+            title: 'Заказы',
             icon: 'group',
             url: '/orders',
             action: 'group', 
+            
+          },
+
+              {
+            title: 'Главная',
+            icon: 'engineering',
+            url: '/main',
+            action: 'engineering', 
             
           },
 
@@ -157,8 +166,15 @@ export default {
         }
 
           return [
+              {
+            title: 'Главная',
+            icon: 'engineering',
+            url: '/main',
+            action: 'engineering', 
+            
+          },
             {
-            title: 'Login', 
+            title: 'Войти', 
             icon: 'login', 
             url: '/login', 
             action: 'login', 
@@ -166,7 +182,7 @@ export default {
           },
 
            {
-            title: 'Registration',
+            title: 'Регистрация',
             icon: 'person_add',
             url: '/registration',
             action: 'person_add', 
