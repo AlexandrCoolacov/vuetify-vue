@@ -66,7 +66,7 @@
                     <h3>Телефон: <a href="tel:+79279072224">8(927)-907-222-4</a></h3>
                     
                     <h3>Рабочий проект лежит по адресу  
-                        <a href="designsite16112020smr.000webhostapp.com/ . ">designsite16112020smr.000webhostapp.com/ . </a> 
+                        <a href="https://designsite16112020smr.000webhostapp.com/">designsite16112020smr.000webhostapp.com</a> 
                         . Не пугайтесь, обычный бесплатный хостинг.
                     </h3>
                 </div>
